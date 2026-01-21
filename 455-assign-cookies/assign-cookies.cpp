@@ -7,15 +7,15 @@ public:
         int r=0;
         int m=s.size();
         int n=g.size();
-        int ans=0;
+       
         while(l<m && r<n){
             if(s[l]>=g[r]) {
-                ans++;
+                
                 r++;
                 
             }
             l++;
         }
-        return ans;
+        return r;
     }
 };
