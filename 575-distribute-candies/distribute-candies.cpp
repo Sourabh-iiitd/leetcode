@@ -9,6 +9,6 @@ public:
             st.insert(candyType[i]);
         }
         int num=n/2;
-        return min((int)st.size(), num);
+        return min((int)st.size(), num); 
     }
 };
