@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dp[10001];
+    vector<int> dp;
 
     int rob(vector<int>& points, int i) {
         if (i >= points.size()) return 0;
@@ -13,13 +13,14 @@ public:
     }
 
     int deleteAndEarn(vector<int>& nums) {
-        vector<int> points(10001, 0);
+        int maxVal = *max_element(nums.begin(), nums.end());
 
+        vector<int> points(maxVal + 1, 0);
         for (int x : nums) {
             points[x] += x;
         }
 
-        memset(dp, -1, sizeof(dp));
+        dp.assign(maxVal + 1, -1);
         return rob(points, 0);
     }
 };
