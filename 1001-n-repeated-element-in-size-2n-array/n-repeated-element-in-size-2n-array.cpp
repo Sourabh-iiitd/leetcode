@@ -6,7 +6,7 @@ public:
             mpp[x]++;
         }
         for(auto &it:mpp){
-            if(it.second>=2){
+            if(it.second==nums.size()/2){
                 return it.first;
             }
         }
