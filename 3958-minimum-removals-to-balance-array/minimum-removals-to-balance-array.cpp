@@ -6,15 +6,19 @@ public:
         if(n==1) return 0;
 
         int i=0;
-        int maxLen = 0;
+        int j=0;
+        int maxLen=0;
 
-        for(int j=0; j<n; j++){ 
-            while(nums[j]>1LL*k*nums[i]){ 
-                i++;
+        while (j<n) {
+
+            if (nums[j]<=1LL*k*nums[i]) {
+                maxLen=max(maxLen, j-i+1);
+                j++;   
+            } 
+            else {
+                i++;   
             }
-            maxLen = max(maxLen, j-i+1);   
         }
-
-        return n - maxLen; 
+        return n-maxLen; 
     }
 };
