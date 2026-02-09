@@ -1,27 +1,22 @@
 class Solution {
 public:
+    int maxSumDivThree(vector<int>& nums) {
+        int n=nums.size();
+        vector<vector<int>> dp(n+1,vector<int>(3,INT_MIN));
 
-    int dp[40001][3];
+        dp[n][0]=0;
+        dp[n][1]=INT_MIN;
+        dp[n][2]=INT_MIN;
 
-    int solve(vector<int>& nums, int i, int rem){
-
-        if(i == nums.size()){
-            return (rem == 0) ? 0 : -1e9;
+        for(int i=n-1;i>=0;i--){
+            for(int rem=0;rem<3;rem++){
+                int nrem=(nums[i]+rem)%3;
+                int tk= nums[i]+ dp[i+1][nrem];
+                int nk=dp[i+1][rem];
+                dp[i][rem]=max(tk,nk);
+            }
         }
 
-        if(dp[i][rem] != -1) return dp[i][rem];
-
-   
-        int nk = solve(nums, i + 1, rem);
-
-  
-        int tk = nums[i] + solve(nums, i + 1, (rem + nums[i]) % 3);
-
-        return dp[i][rem] = max(tk, nk);
-    }
-
-    int maxSumDivThree(vector<int>& nums) {
-        memset(dp, -1, sizeof(dp));
-        return solve(nums, 0, 0);
+        return dp[0][0];
     }
 };
