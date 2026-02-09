@@ -2,8 +2,7 @@ class Solution {
 public:
     bool check(vector<int>& tasks, vector<int>& workers, int pills, int strength, int mid) {
         int pillsUsed = 0;
-        multiset<int> st(begin(workers), begin(workers) + mid); //best mid workers
-
+        multiset<int> st(begin(workers), begin(workers) + mid); 
         for(int i = mid-1; i >= 0; i--) {
             int reqrd = tasks[i];
             auto it   = prev(st.end());
@@ -13,7 +12,7 @@ public:
             } else if(pillsUsed >= pills) {
                 return false;
             } else {
-                //find the weakest worker which can do this strong task using pills
+                
                 auto weakestWorkerIt = st.lower_bound(reqrd - strength);
                 if(weakestWorkerIt == st.end()) {
                     return false;
