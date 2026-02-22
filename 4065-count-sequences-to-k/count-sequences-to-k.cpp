@@ -9,18 +9,18 @@ public:
         }
         long long gcd=__gcd(nm, dn);
 
-        //geneating my unique string
-        string s=to_string(nm/gcd)+"X" + to_string(dn/gcd) + "X" +to_string(i)+"X";
+        //unique string
+        string s=to_string(nm/gcd)+"X" + to_string(dn/gcd)+"X"+to_string(i)+"X";
 
         if (mp.find(s)!=mp.end())
             return mp[s];
 
         int ans=0;
-       
+       //mult
         ans+=helper(a, k, i + 1, nm * a[i], dn);
-       
+       //div
         ans+=helper(a, k, i + 1, nm, dn * a[i]);
-
+        //skip
         ans+=helper(a, k, i + 1, nm, dn);
         return mp[s]=ans;
     }
