@@ -10,8 +10,7 @@ public:
         long long gcd=__gcd(nm, dn);
 
         //geneating my unique string
-        string s=to_string(nm/gcd)+"X" + to_string(dn/gcd) + "X" +
-                   to_string(i * 100 + 7)+"XX";
+        string s=to_string(nm/gcd)+"X" + to_string(dn/gcd) + "X" +to_string(i)+"X";
 
         if (mp.find(s)!=mp.end())
             return mp[s];
