@@ -1,17 +1,9 @@
 class Solution {
 public:
     string dp[21];
-    string rev(string x) {
-        int yo = x.size() - 1;
-        int go = 0;
-
-        while (go < yo) {
-            swap(x[yo], x[go]);
-            go++;
-            yo--;
-        }
-
-        return x;
+    string rev(string s){
+        reverse(s.begin(), s.end());
+        return s;
     }
 
     string invert(string s){
