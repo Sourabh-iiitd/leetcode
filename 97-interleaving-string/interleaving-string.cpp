@@ -1,79 +1,79 @@
 class Solution {
 public:
-    string s1;
-    string s2;
-    string s3;
-    int m;
-    int n;
-    vector<vector<int>> dp;
-    bool solve(int idx1, int idx2) {
-        if (idx1 == m && idx2 == n) {
-
+    int dp[101][101];
+    // 3 VARS
+    //  bool helper(int i, int j,int k,string s1, string s2, string s3){
+    //      if(i==s1.size() && j==s2.size() && k==s3.size()) return true;
+    //      if(k>=s3.size()) return false;
+    //      if( dp[i][j][k]!=-1) return dp[i][j][k];
+    //      bool res;
+    //      if(s1[i]==s3[k]) {
+    //          res=helper(i+1,j,k+1,s1,s2,s3);
+    //      }
+    //      if(res) return true;
+    //      if(s2[j]==s3[k]) {
+    //          res=helper(i,j+1,k+1,s1,s2,s3);
+    //      }
+    //      return dp[i][j][k]=res;
+    //  }
+    // 2VARS
+    bool helper(int i, int j, string s1, string s2, string s3) {
+        if (i == s1.size() && j == s2.size() && i + j == s3.size())
             return true;
-        }
-        if (dp[idx1][idx2] != -1)
-            return dp[idx1][idx2];
-
-        if (idx1 < m && s3[idx1 + idx2] == s1[idx1]) {
-
-            if (solve(idx1 + 1, idx2)) {
-                return dp[idx1][idx2] = true;
-            }
-        }
-
-        if (idx2 < n && s3[idx1 + idx2] == s2[idx2]) {
-
-            if (solve(idx1, idx2 + 1)) {
-                return dp[idx1][idx2] = true;
-            }
-        }
-
-        return dp[idx1][idx2] = false;
-    }
-    // bool isInterleave(string s1, string s2, string s3) {
-    //     if (s1.size() + s2.size() != s3.size())
-    //         return false;
-    //     this->s1 = s1;
-    //     this->s2 = s2;
-    //     this->s3 = s3;
-
-    //     m = s1.size();
-    //     n = s2.size();
-    //     dp.assign(m + 1, vector<int>(n + 1, -1));
-
-    //     return solve(0, 0);
-    // }
-    bool isInterleave(string s1, string s2, string s3) {
-        if (s1.size() + s2.size() != s3.size())
+        if (i + j >= s3.size())
             return false;
+        if (dp[i][j] != -1)
+            return dp[i][j];
+        bool res;
+        if (s1[i] == s3[i + j]) {
+            res = helper(i + 1, j, s1, s2, s3);
+        }
+        if (res)
+            return true;
+        if (s2[j] == s3[i + j]) {
+            res = helper(i, j + 1, s1, s2, s3);
+        }
+        return dp[i][j] = res;
+    }
 
-        m = s1.size();
-        n = s2.size();
-        dp.assign(m + 1, vector<int>(n + 1, 0));
+    // bool isInterleave(string s1, string s2, string s3) {
+    //     memset(dp,-1,sizeof(dp));
+    //     int n=s1.size();
+    //     int m=s2.size();
+    //     int k=s3.size();
+    //     if(m+n!=k) return false;
+    //     if(s1+s2==s3) return true;
+    //     return helper(0,0,s1,s2,s3);
+    // }
 
-        dp[m][n] = 1;
-
-        for (int idx1 = m; idx1 >= 0; idx1--) {
-            for (int idx2 = n; idx2 >= 0; idx2--) {
-
-                if (idx1 == m && idx2 == n)
-                    continue;
-                if (idx1<m && s3[idx1 + idx2] == s1[idx1]) {
-
-                    if (dp[idx1 + 1][idx2]) {
-                        dp[idx1][idx2] = true;
-                    }
+    // BOTTOM UP
+    bool isInterleave(string s1, string s2, string s3) {
+        memset(dp, -1, sizeof(dp));
+        int n = s1.size();
+        int m = s2.size();
+        int k = s3.size();
+        if (m + n != k)
+            return false;
+        if (s1 + s2 == s3)
+            return true;
+        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+        dp[n][m]=1;
+        for (int i = n; i >=0; i--) {
+            for (int j = m ; j >= 0; j--) {
+                if (i == n && j == m) {
+                    dp[i][j] = 1; 
+                }else{
+                bool res=false;
+                if (s1[i] == s3[i + j]) {
+                    res |= dp[i + 1][ j];
                 }
-
-                if (idx2<n && s3[idx1 + idx2] == s2[idx2]) {
-
-                    if (dp[idx1][idx2 + 1]) {
-                        dp[idx1][idx2] = true;
-                    }
+                if (s2[j] == s3[i + j]) {
+                    res |= dp[i][j + 1];
+                }
+                dp[i][j]=res;
                 }
             }
         }
-
         return dp[0][0];
     }
 };
