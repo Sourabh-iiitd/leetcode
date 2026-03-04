@@ -1,10 +1,15 @@
 class Solution {
 public:
     vector<int> countBits(int n) {
-        vector<int> dp(1, 0);
-        int i = 0;
-        while (++i <= n)
-            dp.push_back(dp[i & (i - 1)] + 1);
-        return dp;
+        vector<int> ans;
+        ans.push_back(0);
+
+        for(int i=1;i<=n;i++){
+            int nbits=log2(i);
+            int range=pow(2,nbits);
+            ans.push_back(1+ans[i-range]);
+
+        }
+        return ans;
     }
 };
