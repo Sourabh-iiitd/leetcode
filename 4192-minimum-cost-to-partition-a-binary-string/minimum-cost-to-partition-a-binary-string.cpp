@@ -2,13 +2,24 @@ class Solution {
 public:
     // vector<vector<long long>> dp;
     // map<pair<int, int>, long long> dp;
-    long long count(int st, int end, string &s) {
-        long long count = 0;
-        for (int i = st; i <= end; i++) {
-            if (s[i] == '1')
-                count++;
+
+    vector<long long> prefix_sum;
+
+    // long long count(int st, int end, string &s) {
+    //     long long count = 0;
+    //     for (int i = st; i <= end; i++) {
+    //         if (s[i] == '1')
+    //             count++;
+    //     }
+    //     return count;
+    // }
+
+    long long count(long long start, long long end) {
+        if (start == 0) {
+            return prefix_sum[end];
         }
-        return count;
+
+        return prefix_sum[end] - prefix_sum[start - 1];
     }
     long long helper(int start, int end, string &s, int encCost, int flatCost) {
         if (start > end)
@@ -27,7 +38,7 @@ public:
         long long curr_cost1 = LLONG_MAX;
         long long curr_cost2 = LLONG_MAX;
         long long curr_cost3 = LLONG_MAX;
-        int x = count(start, end, s);
+        int x = count(start, end);
         if (x == 0) {
             curr_cost1 = flatCost;
         } else {
@@ -49,6 +60,17 @@ public:
         int n = s.size();
         // dp.assign(n, vector<long long>(n, -1));
         // dp.clear(); 
+        
+        prefix_sum.assign(s.size(), 0);
+        long long counter = 0;
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '1') {
+                counter++;
+            }
+            prefix_sum[i] = counter;
+        }
+
+
         return helper(0, s.size() - 1, s, encCost, flatCost);
     }
 };
