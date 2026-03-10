@@ -1,7 +1,7 @@
 class Solution {
 public:
     // vector<vector<long long>> dp;
-    map<pair<int, int>, long long> dp;
+    // map<pair<int, int>, long long> dp;
     long long count(int st, int end, string &s) {
         long long count = 0;
         for (int i = st; i <= end; i++) {
@@ -21,8 +21,8 @@ public:
         }
         // if (dp[start][end] != -1)
         //     return dp[start][end];
-        if (dp.count({start, end}))
-            return dp[{start, end}];
+        // if (dp.count({start, end}))
+        //     return dp[{start, end}];
         long long ans = LLONG_MAX;
         long long curr_cost1 = LLONG_MAX;
         long long curr_cost2 = LLONG_MAX;
@@ -43,12 +43,12 @@ public:
         ans = min(curr_cost1, min(curr_cost2, curr_cost3));
 
         // return dp[start][end] = ans;
-        return dp[{start, end}] = ans;
+        return ans;
     }
     long long minCost(string s, int encCost, int flatCost) {
         int n = s.size();
         // dp.assign(n, vector<long long>(n, -1));
-        dp.clear(); 
+        // dp.clear(); 
         return helper(0, s.size() - 1, s, encCost, flatCost);
     }
 };
