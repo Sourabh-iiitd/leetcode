@@ -6,11 +6,11 @@ public:
             ans.push_back(s);
             return ;
         }
-        char prev;
-        if(!s.empty())  prev=s.back();
-        if(s.empty() || prev!='a') helper(n,ans,s+"a");
-        if(s.empty() || prev!='b') helper(n,ans,s+"b");
-        if(s.empty() || prev!='c') helper(n,ans,s+"c");
+        // char prev;
+        // if(!s.empty())  prev=s.back();
+        if(s.empty() || s.back()!='a') helper(n,ans,s+"a");
+        if(s.empty() || s.back()!='b') helper(n,ans,s+"b");
+        if(s.empty() || s.back()!='c') helper(n,ans,s+"c");
 
         // return ans;
     }
