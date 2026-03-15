@@ -1,12 +1,12 @@
 class Solution {
 public:
     int firstUniqueEven(vector<int>& nums) {
-        unordered_map<int, int> count;
+        unordered_map<int, int> mpp;
         for (int x : nums)
-            count[x]++;
+            mpp[x]++;
         
         for (int x : nums)
-            if (x % 2 == 0 && count[x] == 1)
+            if (x % 2 == 0 && mpp[x] == 1)
                 return x;
     	
         return -1;
