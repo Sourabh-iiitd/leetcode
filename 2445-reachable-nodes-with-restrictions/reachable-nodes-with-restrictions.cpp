@@ -17,7 +17,7 @@ public:
         while(!q.empty()){
             int curr=q.front();
             q.pop();
-            vis[0]=1;
+            vis[curr]=1;
             for(auto nodes:adj[curr]){
                 if(!st.contains(nodes) && !vis[nodes]){
                     vis[nodes]=1;
