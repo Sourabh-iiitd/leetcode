@@ -1,40 +1,26 @@
 class Solution {
 public:
+    void dfs( int sr, int sc, int color,vector<vector<int>>& image,
+    vector<vector<int>>& vis){
+        vis[sr][sc]=1;
+        int init_color=image[sr][sc];
+        image[sr][sc]=color;
+        int xdir[4]={-1,0,1,0};
+        int ydir[4]={0,1,0,-1};
+        for(int i=0;i<4;i++){
+            int nx=sr+xdir[i];
+            int ny=sc+ydir[i];
+            if(nx>=0 && ny>=0 && nx<image.size() && ny<image[0].size()&& image[nx][ny]==init_color && !vis[nx][ny]){
 
+                dfs(nx,ny,color,image,vis);
+            }
+        }
+    }
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
         int n=image.size();
         int m=image[0].size();
-        int inicol=image[sr][sc];
-        if(inicol == color) return image;
-        vector<vector<int>> visited(n,vector<int>(m,0));
-        vector<vector<int>> ans=image;
-        queue<pair<int,int>> q;
-        q.push({sr,sc});
-        visited[sr][sc]=1;
-        ans[sr][sc]=color;
-        int drow[] = {-1, 0, 1, 0};
-        int dcol[] = {0, 1, 0, -1};
-        
-        
-        while(!q.empty()){
-            int row=q.front().first;
-            int col=q.front().second;
-           
-            q.pop();
-            for(int i = 0; i < 4; i++) {
-               
-                    int nrow=row+drow[i];
-                    int ncol=col+dcol[i];
-                    if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && visited[nrow][ncol]!=1 &&  image[nrow][ncol]==inicol ){              
-                    q.push({nrow,ncol});
-                    visited[nrow][ncol]=1;
-                    ans[nrow][ncol]=color;
-                    }
-                
-            }
-        }
-        return ans;
-
-
+        vector<vector<int>> vis(n,vector<int>(m,0));
+        dfs(sr,sc,color,image,vis);
+        return image;
     }
 };
