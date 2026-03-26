@@ -43,7 +43,7 @@ public:
             }
         }
 
-        //Horizontal cuts
+        //hor cut
         if(horCuts(grid)) {
             return true;
         }
@@ -64,7 +64,7 @@ public:
                 transposeGrid[j][i]=grid[i][j];
             }
         }
-
+        //verticl 
         if(horCuts(transposeGrid)) {
             return true;
         }
