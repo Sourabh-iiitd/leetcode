@@ -20,7 +20,7 @@ public:
             int node=it.second;
             int t=it.first;
             st.erase(it);
-
+            if(t>dis[node]) continue;
 
             for(auto adjNode : adj[node]){
                 int nd=adjNode.first;
