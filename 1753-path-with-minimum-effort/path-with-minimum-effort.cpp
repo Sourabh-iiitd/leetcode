@@ -20,17 +20,23 @@ public:
                 int xn=x+xdir[i];
                 int yn=y+ydir[i];
                 if(xn>=0 && yn>=0 && xn<n && yn<m ){
-                    int newEffort=max(d,abs(heights[x][y]-heights[xn][yn]));
-                    if(newEffort<dis[xn][yn]){
+                    int ch=heights[xn][yn];
+                    int absd=max(d,abs(heights[x][y]-ch));
+                    
+                    if(absd<dis[xn][yn]){
                         if(dis[xn][yn]!=1e9){
                             st.erase({dis[xn][yn],{xn,yn}});
                         }
-                        dis[xn][yn]=newEffort;
-                        st.insert({newEffort,{xn,yn}});
+                        dis[xn][yn]=absd;
+                        st.insert({dis[xn][yn],{xn,yn}});
                     }
                 }
             }
         }
+        
+
+
+
         return dis[n-1][m-1];
     }
 };
