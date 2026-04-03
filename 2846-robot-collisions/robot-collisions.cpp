@@ -7,7 +7,7 @@ public:
             ids.push_back(i);
         }
         auto compare = [&](int id1, int id2){
-            return positions[id1] <= positions[id2];
+            return positions[id1]< positions[id2];
         };
         sort(ids.begin(), ids.end(),compare);
 
