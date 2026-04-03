@@ -15,6 +15,7 @@ public:
                     }
                     else if(abs(as)>st.top()){
                         st.pop();
+                        // st.push(as);
                     }
                     else{
                         as=0;
@@ -26,12 +27,12 @@ public:
                     
             }
         }
-        vector<int> ans;
-        while(!st.empty()){
-            ans.push_back(st.top());
+    
+        vector<int> ans(st.size());
+        for(int i = st.size()-1; i >= 0; i--){
+            ans[i] = st.top();
             st.pop();
         }
-        reverse(ans.begin(),ans.end());
         return ans;
     }
 };
