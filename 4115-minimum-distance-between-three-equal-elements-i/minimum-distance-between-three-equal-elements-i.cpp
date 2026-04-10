@@ -14,17 +14,9 @@ public:
             vector<int> ind=it.second;
             if(ind.size()<3) continue;
             int a=INT_MAX;
-            for(int i=0;i<ind.size();i++){
-                if(i+2<ind.size()){
-
-                int d1=abs(ind[i]-ind[i+1]);
-                int d2=abs(ind[i+1]-ind[i+2]);
-                int d3=abs(ind[i+2]-ind[i]);
-                
-                a=min(a,d1+d2+d3);
-                }
-                
-
+            for(int i = 0; i + 2 < ind.size(); i++){
+            
+                ans = min(ans, 2 * (ind[i+2] - ind[i]));
             }
             ans=min(ans,a);
 
