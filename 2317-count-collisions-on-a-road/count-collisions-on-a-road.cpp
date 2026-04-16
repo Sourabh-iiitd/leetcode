@@ -1,43 +1,22 @@
 class Solution {
 public:
-    int countCollisions(string directions) {
-        int n = directions.size();
+    int countCollisions(string s) {
+        int n = s.size();
+        
+        int i = 0, j = n - 1;
+        
+        // skip leading L
+        while(i < n && s[i] == 'L') i++;
+        
+        // skip trailing R
+        while(j >= 0 && s[j] == 'R') j--;
+        
         int ans = 0;
-
-        string st = "";  
-
-        for(char c : directions){
-            
-            if(c == 'R'){
-                st.push_back(c);
-            }
-            else if(c == 'S'){
-                while(!st.empty() && st.back() == 'R'){
-                    ans++;
-                    st.pop_back();
-                }
-                st.push_back('S');
-            }
-            else { 
-                if(st.empty()){
-                    continue;
-                }
-                else if(st.back() == 'S'){
-                    ans++; 
-                }
-                else{ 
-                    
-                    ans += 2;
-                    st.pop_back();
-                    while(!st.empty() && st.back() == 'R'){
-                        ans++;
-                        st.pop_back();
-                    }
-                }
-                st.push_back('S');
-            }
+        
+        for(int k = i; k <= j; k++){
+            if(s[k] != 'S') ans++;
         }
-
+        
         return ans;
     }
 };
