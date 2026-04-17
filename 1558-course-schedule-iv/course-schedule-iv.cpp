@@ -4,9 +4,9 @@ public:
         int n=numCourses;
         vector<vector<bool>> matrix(numCourses, vector<bool>(numCourses, false));
 
-        for(int i=0;i<n;i++){
-            matrix[i][i]=true;
-        }
+        // for(int i=0;i<n;i++){
+        //     matrix[i][i]=true;
+        // }
         for(int i=0;i<prerequisites.size();i++){
             int u=prerequisites[i][0];
             int v=prerequisites[i][1];
