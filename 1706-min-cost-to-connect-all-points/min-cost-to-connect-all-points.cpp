@@ -19,7 +19,7 @@ public:
             ans+=wgt;
 
             for(int in=0;in<n;in++){
-                // if(idx!=in && vis[in]!){
+                if(vis[in]!=1){
                     int x1=points[idx][0];
                     int y1=points[idx][1];
 
@@ -29,7 +29,7 @@ public:
                     int wgt1=abs(x2-x1)+abs(y2-y1);
                     pq.push({wgt1, in});
                 }
-            // }       
+            }       
         }
 
         return ans;
