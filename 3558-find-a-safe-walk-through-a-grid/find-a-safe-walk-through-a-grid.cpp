@@ -1,7 +1,7 @@
 class Solution {
 public:
     int n,m;
-    vector<vector<int>> best;   // <-- Added
+    vector<vector<int>> dp;  
 
     bool path(int i, int j, vector<vector<int>>& grid, int health,
               vector<vector<int>> &vis){
@@ -11,8 +11,8 @@ public:
         if(i==n-1 && j==m-1) return true;
 
         
-        if(best[i][j] >= health) return false;
-        best[i][j] = health;
+        if(dp[i][j] >= health) return false;
+        dp[i][j] = health;
 
         int xdir[4]={-1,0,1,0};
         int ydir[4]={0,1,0,-1};
@@ -40,7 +40,7 @@ public:
         m=grid[0].size();
 
         vector<vector<int>> vis(n,vector<int>(m,0));
-        best.assign(n, vector<int>(m,-1));  
+        dp.assign(n, vector<int>(m,-1));  
 
         return path(0,0,grid,health-grid[0][0],vis);
     }
