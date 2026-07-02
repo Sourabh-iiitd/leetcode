@@ -1,89 +1,39 @@
 class Solution {
 public:
-    vector<long long> minTimeMaxPower(int n, vector<vector<int>>& edges,
-                                      int power, vector<int>& cost,
-                                      int source, int target) {
-
+    vector<long long> minTimeMaxPower(int n, vector<vector<int>>& edges, int power, vector<int>& cost, int source, int target) {
         vector<vector<pair<int,int>>> adj(n);
-        for (auto &e : edges) {
-            adj[e[0]].push_back({e[1], e[2]});
+        for(auto &edge:edges){
+            int u=edge[0],v=edge[1],t=edge[2];
+            adj[u].push_back({v,t});
         }
 
-        vector<map<int,long long>> dist(n);
+        priority_queue<tuple<long long,int,int>,vector<tuple<long long,int,int>>,greater<>> pq;
+        vector<int> max_power_reached(n,-1);
 
-        using T = tuple<long long,int,int>;
-        priority_queue<T, vector<T>, greater<T>> pq;
+        pq.push({0,-power,source});
 
-        dist[source][power] = 0;
-        pq.push({0, source, power});
-
-        while (!pq.empty()) {
-
-            auto [t, node, rem_power] = pq.top();
+        while(!pq.empty()){
+            auto [t,neg_p,u]=pq.top();
             pq.pop();
 
-            auto itCur = dist[node].find(rem_power);
-            if (itCur == dist[node].end() || itCur->second != t)
-                continue;
+            int p=-neg_p;
 
-            if (node == target)
-                continue;
+            if(u==target) return {t,p};
 
-            if (rem_power < cost[node])
-                continue;
+            if(p<=max_power_reached[u]) continue;
+            max_power_reached[u]=p;
 
-            int next_power = rem_power - cost[node];
+            if(p<cost[u]) continue;
 
-            for (auto &[next_node, wt] : adj[node]) {
+            int next_p=p-cost[u];
 
-                long long new_time = t + wt;
-
-                // --------- Dominance check ----------
-                bool dominated = false;
-
-                auto it = dist[next_node].lower_bound(next_power);
-
-                while (it != dist[next_node].end()) {
-                    if (it->second <= new_time) {
-                        dominated = true;
-                        break;
-                    }
-                    ++it;
-                }
-
-                if (dominated)
-                    continue;
-
-                // Remove dominated states
-                it = dist[next_node].begin();
-
-                while (it != dist[next_node].end()) {
-                    if (it->first <= next_power && it->second >= new_time)
-                        it = dist[next_node].erase(it);
-                    else
-                        ++it;
-                }
-
-                dist[next_node][next_power] = new_time;
-                pq.push({new_time, next_node, next_power});
+            for(auto &edge:adj[u]){
+                int v=edge.first;
+                long long next_t=t+edge.second;
+                pq.push({next_t,-next_p,v});
             }
         }
 
-        long long min_time = LLONG_MAX;
-        int max_power = -1;
-
-        for (auto &[p, tm] : dist[target]) {
-            if (tm < min_time) {
-                min_time = tm;
-                max_power = p;
-            } else if (tm == min_time) {
-                max_power = max(max_power, p);
-            }
-        }
-
-        if (min_time == LLONG_MAX)
-            return {-1, -1};
-
-        return {min_time, max_power};
+        return {-1,-1};
     }
 };
