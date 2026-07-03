@@ -1,16 +1,31 @@
 class Solution {
 public:
-    int maxTotalValue(vector<int>& value, vector<int>& decay, long long m) {
-        const long long MOD = 1e9 + 7;
+    const long long MOD = 1e9 + 7;
 
+    long long power(long long a, long long b) {
+        long long ans = 1;
+        a %= MOD;
+
+        while (b) {
+            if (b & 1) ans = (ans * a) % MOD;
+            a = (a * a) % MOD;
+            b >>= 1;
+        }
+
+        return ans;
+    }
+
+    int maxTotalValue(vector<int>& value, vector<int>& decay, long long m) {
         int n = value.size();
 
         auto check = [&](long long x) {
             long long cnt = 0;
+
             for (int i = 0; i < n; i++) {
                 if (value[i] < x) continue;
                 cnt += (value[i] - x) / decay[i] + 1;
             }
+
             return cnt;
         };
 
@@ -27,19 +42,6 @@ public:
                 hi = mid - 1;
             }
         }
-
-        auto power = [&](long long a, long long b) {
-            long long ans = 1;
-            a %= MOD;
-
-            while (b) {
-                if (b & 1) ans = (ans * a) % MOD;
-                a = (a * a) % MOD;
-                b >>= 1;
-            }
-
-            return ans;
-        };
 
         long long inv2 = power(2, MOD - 2);
 
