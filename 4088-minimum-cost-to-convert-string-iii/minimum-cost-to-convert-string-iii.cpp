@@ -4,8 +4,7 @@ public:
     string source;
     string target;
     vector<vector<string>> rules;
-    int dp[50001];
-    
+    vector<int> dp;
     int this_cost(int idx,string &pattern, string &replacement){
         string sub_source=source.substr(idx,pattern.size());
         string sub_target=target.substr(idx,pattern.size());
@@ -32,8 +31,8 @@ public:
         if (dp[idx]!=-2) return dp[idx];
         int cost_ans=INT_MAX;
         for(int i=0;i<rules.size();i++){
-            string pattern=rules[i][0];
-            string replacement=rules[i][1];
+            string &pattern=rules[i][0];
+            string &replacement=rules[i][1];
             int cst=this_cost(idx,pattern,replacement);
             if(cst==-1) continue;
             cst+=costs[i];
@@ -55,8 +54,7 @@ public:
     }
     int minCost(string source, string target, vector<vector<string>>& rules, vector<int>& costs) {
         if(source==target) return 0;
-        memset(dp,-2,sizeof(dp));
-        for(int i=0;i<5001;i++)dp[i]=-2;
+        dp.assign(source.size()+1,-2);
         this->source=source;
         this->costs=costs;
         this->target=target;
