@@ -6,7 +6,7 @@ public:
     vector<vector<string>> rules;
     int dp[50001];
     
-    int this_cost(int idx,string pattern, string replacement){
+    int this_cost(int idx,string &pattern, string &replacement){
         string sub_source=source.substr(idx,pattern.size());
         string sub_target=target.substr(idx,pattern.size());
 
