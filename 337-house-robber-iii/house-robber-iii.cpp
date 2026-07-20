@@ -1,28 +1,24 @@
 class Solution {
 public:
-    map<pair<TreeNode*, bool>, int> memo;
-    int solve(TreeNode* root, bool can) {
-        if (!root) return 0;
-        if (memo.count({root, can})) {
-            return memo[{root, can}];
-        }
-        int res=0;
-        if (can) {
-        
-            int rob=root->val + solve(root->left, false) + solve(root->right, false);
+    // Returns {max money if ROBBING root, max money if SKIPPING root}
+    pair<int, int> dfs(TreeNode* root) {
+        if (!root) return {0, 0};
 
-         
-            int skip=solve(root->left, true) + solve(root->right, true);
+        // Post-order traversal (bottom-up)
+        auto left = dfs(root->left);
+        auto right = dfs(root->right);
 
-            res=max(rob, skip);
-        } else {
+        // State 1: Rob this node -> children MUST be skipped
+        int rob = root->val + left.second + right.second;
 
-            res=solve(root->left, true) + solve(root->right, true);
-        }
-        return memo[{root, can}]=res;
+        // State 2: Skip this node -> take max option from each child independently
+        int skip = max(left.first, left.second) + max(right.first, right.second);
+
+        return {rob, skip};
     }
 
     int rob(TreeNode* root) {
-        return solve(root, true);
+        auto [rob_root, skip_root] = dfs(root);
+        return max(rob_root, skip_root);
     }
 };
