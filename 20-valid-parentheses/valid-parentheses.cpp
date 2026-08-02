@@ -4,30 +4,29 @@ public:
         stack <char> st;
         
         for(char c : s){
-            if( c=='('){
-                st.push('(');
-            }
+            if( c=='(') st.push(c);
+            
 
             else if( c==')'){
                 if(st.empty()) return false;
                 if(st.top()=='(') st.pop();
-                else st.push(')');
+                else st.push(c);
             }
 
-            else if( c=='{') st.push('{');
+            else if( c=='{') st.push(c);
 
             else if( c=='}'){
                 if(st.empty()) return false;
                 if(st.top()=='{') st.pop();
-                else st.push('}');
+                else st.push(c);
             }
 
-            else if( c=='[') st.push('[');
+            else if( c=='[') st.push(c);
 
             else if( c==']'){
                 if(st.empty()) return false;
                 if(st.top()=='[') st.pop();
-                else st.push(']');
+                else st.push(c);
             }
 
             
