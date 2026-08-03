@@ -33,7 +33,7 @@ public:
                     q.push(idx+1);
                     vis[idx+1]=1;
                 }
-                vector<int> ids=mpp[arr[idx]];
+                const auto& ids = mpp[arr[idx]];
             
                 for(auto it:ids){
                 
