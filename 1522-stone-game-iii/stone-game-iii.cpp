@@ -1,21 +1,35 @@
 class Solution {
 public:
-    string stoneGameIII(vector<int>& stoneValue) {
-        int n = stoneValue.size();
-        vector<int> dp(n + 1, 0);
+    int n;
+    int dp[50001];
 
-        for (int i = n - 1; i >= 0; i--) {
-            int stones = 0;
-            dp[i] = INT_MIN;
+    int solve(int i, vector<int>& stoneValue) {
+        if (i >= n) return 0;
 
-            for (int k = 0; k < 3 && i + k < n; k++) {
-                stones += stoneValue[i + k];
-                dp[i] = max(dp[i], stones - dp[i + k + 1]);
-            }
+        if (dp[i] != INT_MIN)
+            return dp[i];
+
+        int stones = 0;
+        int ans = INT_MIN;
+
+        for (int k = 0; k < 3 && i + k < n; k++) {
+            stones += stoneValue[i + k];
+            ans = max(ans, stones - solve(i + k + 1, stoneValue));
         }
 
-        if (dp[0] > 0) return "Alice";
-        if (dp[0] < 0) return "Bob";
+        return dp[i] = ans;
+    }
+
+    string stoneGameIII(vector<int>& stoneValue) {
+        n = stoneValue.size();
+
+        for (int i = 0; i <= n; i++)
+            dp[i] = INT_MIN;
+
+        int diff = solve(0, stoneValue);
+
+        if (diff > 0) return "Alice";
+        if (diff < 0) return "Bob";
         return "Tie";
     }
 };
