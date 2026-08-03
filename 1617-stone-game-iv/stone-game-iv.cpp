@@ -1,25 +1,20 @@
 class Solution {
 public:
     int n;
-    int memo[100001];
-    bool solve(int i) {
-        if (i == n) return false;
-        if (memo[i] != -1) return memo[i];
+    int dp[100001];
+    bool solve(int i){
+        if(i>=n) return false;
+        if(dp[i]!=-1) return dp[i];
 
-      
-        for (int x = 1; i + x * x <= n; x++) {
-        
-            if (!solve(i + x * x)) {
-                return memo[i] = true;
-            }
+        bool res=false;
+        for(int x=1; i+x*x<=n; x++){
+            res=res||!solve(i+x*x);
         }
-
-        return memo[i] = false; 
+        return dp[i]=res;
     }
-
     bool winnerSquareGame(int n) {
-        this->n = n;
-        memset(memo, -1, sizeof(memo));
+        memset(dp,-1,sizeof(dp));
+        this->n=n;
         return solve(0);
     }
 };
