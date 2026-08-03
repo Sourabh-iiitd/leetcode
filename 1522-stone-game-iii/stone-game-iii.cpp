@@ -33,7 +33,7 @@ public:
             tsum+=x;
         }
         int alice=solve(0,1,stoneValue);
-        int bob=tsum-solve(0,1,stoneValue);
+        int bob=tsum-alice;
         if(alice>bob) return "Alice";
         else if(bob>alice) return "Bob";
         else return "Tie";
