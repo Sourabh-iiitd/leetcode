@@ -3,11 +3,12 @@ public:
     int memo[501][501];
     int helper(int st, int end, vector<int>& piles){
         if(st==end) return piles[st];
-        int pickst = piles[st] - helper( st + 1, end,piles);
-        
-       if (memo[st][end] != -1) {
+        if (memo[st][end] != -1) {
             return memo[st][end];
         }
+        int pickst = piles[st] - helper( st + 1, end,piles);
+        
+       
         int pickEnd = piles[end] - helper( st, end - 1,piles);
 
        
