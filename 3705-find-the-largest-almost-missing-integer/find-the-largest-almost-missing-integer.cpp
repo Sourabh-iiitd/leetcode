@@ -1,25 +1,37 @@
 class Solution {
 public:
     int largestInteger(vector<int>& nums, int k) {
-        int n=nums.size();
-        vector<int> freq(51,0);
-
-        for(int i=0;i<=n-k;i++){
-            vector<bool> seen(51, false);
-            for(int j=i;j<i+k;j++){
-                seen[nums[j]]=true;
-            }
-            for (int val=0;val<=50;val++) {
-                if (seen[val]) freq[val]++;
-            }
-        }
-       
-        int ans=-1;
+        int n = nums.size();
         
-        for(int i=0;i<51;i++){
-            if(freq[i]==1) {
-                ans=max(ans,i);
+        // Fast fixed-size frequency array (assuming elements <= 50)
+        vector<int> freq(51, 0);
+        for (int x : nums) {
+            freq[x]++;
+        }
+
+        // Case 1: k == n -> Entire array is 1 window
+        if (k == n) {
+            return *max_element(nums.begin(), nums.end());
+        }
+
+        // Case 2: k == 1 -> Elements with global frequency of 1
+        if (k == 1) {
+            int ans = -1;
+            for (int x : nums) {
+                if (freq[x] == 1) {
+                    ans = max(ans, x);
+                }
             }
+            return ans;
+        }
+
+        // Case 3: 1 < k < n -> Only ends (nums[0] and nums[n-1]) can appear in 1 window
+        int ans = -1;
+        if (freq[nums[0]] == 1) {
+            ans = max(ans, nums[0]);
+        }
+        if (freq[nums[n - 1]] == 1) {
+            ans = max(ans, nums[n - 1]);
         }
 
         return ans;
