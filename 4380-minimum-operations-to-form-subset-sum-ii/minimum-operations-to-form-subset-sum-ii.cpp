@@ -5,44 +5,44 @@ public:
     vector<int> nums;
 
     int solve(int i, int sum) {
-        if (sum == 0) return 0;
-        if (i >= n) return 1e9; 
-        if (dp[i][sum] != -1) return dp[i][sum];
+        if (sum==0) return 0;
+        if (i>=n) return 1e9; 
+        if (dp[i][sum]!=-1) return dp[i][sum];
 
         
-        int ans = solve(i + 1, sum);
+        int ans=solve(i+1, sum); //skip
 
        
-        int div_val = nums[i];
-        int div_ops = 0;
+        int divVal=nums[i];
+        int divOps=0;
 
-        while (div_val > 0) {
-            long long mul_val = div_val;
-            int mul_ops = 0;
+        while (divVal>0){
+            long long mulVal=divVal;
+            int mulOps=0;
 
-            while (mul_val <= sum) {
-                int total_ops = div_ops + mul_ops;
-                int rem = solve(i + 1, sum - mul_val);
-                if (rem < 1e9) {
-                    ans = min(ans, total_ops + rem);
+            while (mulVal<=sum){
+                int totalOps=divOps+mulOps;
+                int rem=solve(i+1,sum-mulVal);
+                if (rem<1e9){
+                    ans=min(ans,totalOps+rem);
                 }
-                mul_val *= 2;
-                mul_ops++;
+                mulVal*=2;
+                mulOps++;
             }
 
-            div_val /= 2;
-            div_ops++;
+            divVal/=2;
+            divOps++;
         }
 
-        return dp[i][sum] = ans;
+        return dp[i][sum]=ans;
     }
 
     int minOperations(vector<int>& nums, int sum) {
-        this->nums = nums;
-        this->n = nums.size();
-        memset(dp, -1, sizeof(dp));
+        this->nums=nums;
+        this->n=nums.size();
+        memset(dp,-1,sizeof(dp));
         
-        int res = solve(0, sum);
-        return res >= 1e9 ? -1 : res;
+        int res=solve(0,sum);
+        return res>=1e9? -1:res;
     }
 };
