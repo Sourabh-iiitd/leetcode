@@ -47,6 +47,7 @@ public:
         this->nums=nums;
         this->n=nums.size();
         memset(dp,-1,sizeof(dp));
-        return solve(0,sum)== INT_MAX? -1 : solve(0,sum);
+        int res=solve(0, sum);
+        return res==INT_MAX? -1 :res;
     }
 };
