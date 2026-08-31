@@ -18,7 +18,7 @@ public:
         ListNode* next = head->next->next;
 
         int first_crit = -1, prev_crit = -1;
-        int min_dist = INT_MAX;
+        int ans = INT_MAX;
         int index = 1;
 
         while (next) {
@@ -30,7 +30,7 @@ public:
                     first_crit = index;
                 }
                 if (prev_crit != -1) {
-                    min_dist = min(min_dist, index - prev_crit);
+                    ans = min(ans, index - prev_crit);
                 }
                 prev_crit = index;
             }
@@ -41,10 +41,10 @@ public:
             index++;
         }
 
-        if (min_dist == INT_MAX) {
+        if (ans == INT_MAX) {
             return {-1, -1};
         }
 
-        return {min_dist, prev_crit - first_crit};
+        return {ans, prev_crit - first_crit};
     }
 };
