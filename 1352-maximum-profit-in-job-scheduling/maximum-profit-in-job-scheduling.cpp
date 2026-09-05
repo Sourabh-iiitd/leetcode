@@ -18,7 +18,8 @@ public:
         return next;
     }
 
-    int dp[50004];
+    vector<int> dp;
+    
     int solve(vector<vector<int>> &arr, int idx){
         if(idx>=n) return 0;
         if(dp[idx]!=-1) return dp[idx];
@@ -41,7 +42,8 @@ public:
         }
 
         sort(arr.begin(), arr.end());
-        memset(dp,-1,sizeof(dp));
+        
+        dp.assign(n, -1); 
         return solve(arr,0);
     }
 };
