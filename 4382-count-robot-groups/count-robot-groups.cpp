@@ -11,7 +11,7 @@ public:
         }
 
         int ans=0;
-        int minSpeedToRight = 2e9 + 7;
+        int minSpeedToRight=INT_MAX;
         for(int i=grpspeed.size()-1;i>=0;i--){
             if (grpspeed[i] <= minSpeedToRight) {
                 ans++;
