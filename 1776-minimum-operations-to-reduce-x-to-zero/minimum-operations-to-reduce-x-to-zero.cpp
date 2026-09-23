@@ -19,7 +19,7 @@ public:
             if(mp.find(s)==mp.end())
                mp[s]=i;
         }
-        if(an==0&&mp.find(x)==mp.end()) return -1;
+        if(an==0 && mp.find(x)==mp.end()) return -1;
         return n-an;
     }
 };
