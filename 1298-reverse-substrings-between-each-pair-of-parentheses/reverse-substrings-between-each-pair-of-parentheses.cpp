@@ -1,6 +1,3 @@
-#include <stack>
-#include <string>
-
 class Solution {
 public:
     string reverseParentheses(string s) {
@@ -8,10 +5,10 @@ public:
         string ans;
 
         for (char ch : s) {
-            if (ch == '(') {
+            if (ch=='(') {
                 st.push(ans);
                 ans = "";
-            } else if (ch == ')') {
+            } else if (ch==')') {
                 reverse(ans.begin(), ans.end());
                 ans = st.top() + ans;
                 st.pop();
