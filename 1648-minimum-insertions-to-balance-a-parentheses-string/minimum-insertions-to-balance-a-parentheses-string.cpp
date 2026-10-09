@@ -29,6 +29,8 @@ public:
             }   
         }
 
-        return ans+ ops*2;;
+        ans+= ops*2;
+
+        return ans;
     }
 };
