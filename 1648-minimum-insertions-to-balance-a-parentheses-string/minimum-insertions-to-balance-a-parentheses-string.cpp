@@ -1,26 +1,34 @@
 class Solution {
 public:
     int minInsertions(string s) {
+        int ops=0;
         int ans=0;
-        int opn=0;
-        int n= s.size();
+    
+        for(int i=0;i<s.size();i++){
+            char c=s[i];
 
-        for(int i=0;i<n;i++){
-            if(s[i]=='(') opn++;
-            else{
-                if(i+1<n && s[i+1]==')'){
-                    i++;
-                    if(opn>0) opn--;
-                    else ans++;
+            if(c=='(') {
+                ops++;
+            }
+            else if(c==')'){
+                
+                if(i+1<s.size() && s[i+1]==')')  {
+                   if(ops>0) ops--;
+                   else ans++;
+                   i++;
                 }
                 else{
-                    ans++;
-                    if(opn>0) opn--;
-                    else ans++;
-                }
-            }
+                    if(ops>0){
+                        ops--;
+                        ans++;
+                    }
+                    else {
+                        ans+=2;
+                    }
+                }            
+            }   
         }
-        ans+= opn*2;
-        return ans;
+
+        return ans+ ops*2;;
     }
 };
