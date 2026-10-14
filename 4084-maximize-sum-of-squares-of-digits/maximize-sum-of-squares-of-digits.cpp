@@ -12,7 +12,7 @@ public:
 
         if(sum>0) result += to_string(sum);
 
-        while (result.length() < num) {
+        while (result.size() < num) {
             result += '0';
         }
         return result;
