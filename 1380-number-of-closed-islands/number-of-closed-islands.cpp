@@ -1,10 +1,10 @@
 class Solution {
 public:
-    vector<vector<int>> grid;
+    // vector<vector<int>> grid;
     int n;
     int m;
-    bool bfs(int i, int j, vector<vector<int>> &vis){
-        vis[i][j]=1;
+    bool bfs(int i, int j,vector<vector<int>>& grid){
+        grid[i][j]=1;
         queue<pair<int,int>> q;;
         q.push({i,j});
 
@@ -25,9 +25,9 @@ public:
                 int ny= y+ ydir[i];
                 
 
-                if(nx>=0 && nx<n && ny>=0 && ny<m && grid[nx][ny]!=1 && !vis[nx][ny]){
+                if(nx>=0 && nx<n && ny>=0 && ny<m && grid[nx][ny]!=1){
                     q.push({nx,ny});
-                    vis[nx][ny]=1;
+                    grid[nx][ny]=1;
                 }
             }
 
@@ -40,15 +40,15 @@ public:
     int closedIsland(vector<vector<int>>& grid) {
         this->n=grid.size();
         this->m=grid[0].size();
-        this->grid=grid;
-        vector<vector<int>> vis(n, vector<int>(m,0));
+      
+        
 
         int count = 0;
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (grid[i][j] == 0 && !vis[i][j]) {
-                    if (bfs(i, j, vis)) {
+                if (grid[i][j] == 0) {
+                    if (bfs(i, j,grid)) {
                         count++;
                     }
                 }
