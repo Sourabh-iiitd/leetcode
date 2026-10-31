@@ -12,7 +12,7 @@ public:
 
         int curr=grid[i][j];
 
-        // left;
+        
         int ans=0;
        
         if(curr==0){
