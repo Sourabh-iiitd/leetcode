@@ -1,26 +1,28 @@
 class Solution {
 public:
     long long maximumSubarraySum(vector<int>& nums, int k) {
+        int n=nums.size(); 
         long long ans=0;
-        long long currsm=0;
-        int l=0;
-        unordered_map<int,int> mpp;
-        for(int r=0;r<nums.size();r++){
-            currsm+=nums[r];
-            mpp[nums[r]]++;
+        long long sm=0;
+        unordered_map<int,int> mp;
 
-            if(r-l+1>k){
-                currsm-=nums[l];
-                mpp[nums[l]]--;
-                if(mpp[nums[l]]==0){
-                    mpp.erase(nums[l]);
-                }
-                l++;
+        for(int i=0;i<n;i++){
+
+            mp[nums[i]]++;
+            sm+=nums[i];
+
+            if(i>=k) {
+                sm-= nums[i-k];
+                mp[nums[i-k]]--;
+
+                if(mp[nums[i-k]]==0)
+                    mp.erase(nums[i-k]);
             }
-            if(r-l+1==k && mpp.size()==k){
-                ans=max(ans, currsm);
-            }
+
+            if(i>=k-1 && mp.size()==k)
+                ans=max(ans,sm);
         }
+
         return ans;
     }
 };
