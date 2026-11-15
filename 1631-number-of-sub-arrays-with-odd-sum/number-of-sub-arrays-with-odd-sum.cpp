@@ -2,15 +2,13 @@ class Solution {
 public:
     int numOfSubarrays(vector<int>& arr) {
         int n=arr.size();
-        vector<int> pref(n+1,0);
        
+        long long ods=0,ev=1;
+        int sum=0;
         for(int i=0;i<n;i++){
-            pref[i+1]=pref[i]+arr[i];
-        }
-        long long ods=0,ev=0;
-        for(int i=0;i<=n;i++){
-            if(pref[i]%2==0) ev++;
-            else ods++;
+            sum+=arr[i];
+            if(sum%2==0) ev++;
+            else ods++;  
         }
         return (ods*ev)% 1000000007;
     }
